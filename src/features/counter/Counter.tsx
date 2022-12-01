@@ -10,6 +10,7 @@ import {
   selectCount,
 } from './counterSlice';
 import styles from './Counter.module.css';
+import { Button, TextField } from '@mui/material';
 
 export function Counter() {
   const count = useAppSelector(selectCount);
@@ -21,47 +22,47 @@ export function Counter() {
   return (
     <div>
       <div className={styles.row}>
-        <button
-          className={styles.button}
+        <Button
+          variant="contained"
           aria-label="Decrement value"
           onClick={() => dispatch(decrement())}
         >
           -
-        </button>
+        </Button>
         <span className={styles.value}>{count}</span>
-        <button
-          className={styles.button}
+        <Button
+          variant="contained"
           aria-label="Increment value"
           onClick={() => dispatch(increment())}
         >
           +
-        </button>
+        </Button>
       </div>
       <div className={styles.row}>
-        <input
-          className={styles.textbox}
+        <TextField
+          variant="outlined"
           aria-label="Set increment amount"
           value={incrementAmount}
           onChange={(e) => setIncrementAmount(e.target.value)}
         />
-        <button
-          className={styles.button}
+        <Button
+          variant="contained"
           onClick={() => dispatch(incrementByAmount(incrementValue))}
         >
           Add Amount
-        </button>
-        <button
-          className={styles.asyncButton}
+        </Button>
+        <Button
+          variant="contained"
           onClick={() => dispatch(incrementAsync(incrementValue))}
         >
           Add Async
-        </button>
-        <button
-          className={styles.button}
+        </Button>
+        <Button
+          variant="contained"
           onClick={() => dispatch(incrementIfOdd(incrementValue))}
         >
           Add If Odd
-        </button>
+        </Button>
       </div>
     </div>
   );
