@@ -9,6 +9,8 @@ export interface Breed {
 const initialState = {
   loading: false,
   breeds: [] as Breed[],
+  selectedBreeds: [] as Breed[],
+  images: [],
   error: false,
 };
 

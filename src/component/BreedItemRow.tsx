@@ -17,6 +17,7 @@ function BreedItemRow(props: any) {
   const [subBreed, setSubBreed] = useState("");
   const [subBreeds, setSubBreeds] = useState([]);
   const [imageCount, setImageCount] = useState(0);
+  const dispatch = useDispatch();
 
   const onBreedChange = (e: any) => {
     const subBreeds = allBreeds.filter((breed: any) => {
