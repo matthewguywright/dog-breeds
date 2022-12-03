@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Modal, Box, Card } from "@mui/material";
+import {
+  Typography,
+  Modal,
+  Box,
+  Card,
+  Grid,
+  ImageList,
+  ImageListItem,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../app/store";
 import { fetchImages } from "../features/images/imagesSlice";
@@ -37,13 +45,30 @@ function ImagesModal(props: any) {
     >
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Breed Gallery
+          Gallery
         </Typography>
-        {imageList.map((image: any) => (
-          <Card>
-            <img src={image} alt={image} />
-          </Card>
-        ))}
+        {imageList.length ? (
+          <Grid container spacing={2}>
+            <ImageList
+              sx={{ width: 500, height: 450 }}
+              cols={3}
+              rowHeight={164}
+            >
+              {imageList.map((item, i) => (
+                <ImageListItem key={item + i}>
+                  <img
+                    src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                    srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                    alt={item}
+                    loading="lazy"
+                  />
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </Grid>
+        ) : (
+          <p>No images to display. Make a selection.</p>
+        )}
       </Box>
     </Modal>
   );

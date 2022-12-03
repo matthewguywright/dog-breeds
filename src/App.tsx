@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Container, Grid, Typography, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBreeds } from "./features/breeds/breedSlice";
@@ -27,6 +27,9 @@ function App() {
     <Container>
       <Grid container spacing={2}>
         <Grid item xs={12}>
+          <Suspense>
+            
+          </Suspense>
           {breed.loading && <Typography variant="h2">Loading...</Typography>}
 
           {breed.error && (
