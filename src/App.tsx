@@ -14,15 +14,16 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBreeds } from "./features/breeds/breedSlice";
+import { AppDispatch } from "./app/store";
 
 function App() {
-  const [breedData, setBreedData] = useState([]);
-  const [breed, setBreed] = useState("");
-  const [subBreed, setSubBreed] = useState("");
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const breed = useSelector((state: any) => state.breed);
 
   const style = {
     position: "absolute" as "absolute",
@@ -38,106 +39,79 @@ function App() {
     pb: 3,
   };
 
-  const logData = () => {
-    console.log(breed);
-    console.log(subBreed);
-  };
+  const handleBreedChange = (event: SelectChangeEvent) => {};
 
-  const handleBreedChange = (event: SelectChangeEvent) => {
-    setBreed(event.target.value);
-    logData();
-  };
-
-  const handleSubBreedChange = (event: SelectChangeEvent) => {
-    setSubBreed(event.target.value);
-    logData();
-  };
+  const handleSubBreedChange = (event: SelectChangeEvent) => {};
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log(breed);
-    console.log(subBreed);
     handleOpen();
   };
 
   useEffect(() => {
-    const cancelToken = axios.CancelToken.source();
-
-    async function fetchBreeds() {
-      await axios
-        .get("https://dog.ceo/api/breeds/list/all", {
-          cancelToken: cancelToken.token,
-        })
-        .then((res) => {
-          const breedArray = [];
-          for (const breed in res.data.message) {
-            breedArray.push({ sub: res.data.message[breed], name: breed });
-          }
-          setBreedData(res.data);
-          console.log(res.data.message);
-          console.log(breedArray);
-        })
-        .catch((err) => {
-          if (axios.isCancel(err)) {
-            console.log("cancelled call");
-          } else {
-            // TODO: message
-          }
-        });
-    }
-    fetchBreeds();
+    dispatch(fetchBreeds());
   }, []);
 
   return (
     <Container>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <form id="dogForm" noValidate onSubmit={handleSubmit}>
-            <Grid item xs={12}>
-              <FormControl sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel id="breed-label">Breed</InputLabel>
-                <Select
-                  labelId="breed-label"
-                  id="breed"
-                  value={breed}
-                  label="Breed"
-                  onChange={handleBreedChange}
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-                <FormHelperText>Choose a breed</FormHelperText>
-              </FormControl>
-              <FormControl sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel id="sub-breed-label">Sub-Breed</InputLabel>
-                <Select
-                  labelId="sub-breed-label"
-                  id="subBreed"
-                  value={subBreed}
-                  label="Sub-Breed"
-                  onChange={handleSubBreedChange}
-                  disabled
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-                <FormHelperText>Choose a sub-breed</FormHelperText>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              <Button type="submit" variant="outlined">
-                submit
-              </Button>
-            </Grid>
-          </form>
+          {breed.loading && <Typography variant="h2">Loading...</Typography>}
+
+          {breed.error && (
+            <Typography variant="h2" component="p">
+              There was an application error.
+            </Typography>
+          )}
+
+          {breed.breeds.length && (
+            <form id="dogForm" noValidate onSubmit={handleSubmit}>
+              <Grid item xs={12}>
+                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                  <InputLabel id="breed-label">Breed</InputLabel>
+                  {/* <Select
+                    labelId="breed-label"
+                    id="breed"
+                    value={}
+                    label="Breed"
+                    onChange={handleBreedChange}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select> */}
+                  <FormHelperText>Choose a breed</FormHelperText>
+                </FormControl>
+                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                  <InputLabel id="sub-breed-label">Sub-Breed</InputLabel>
+                  {/* <Select
+                    labelId="sub-breed-label"
+                    id="subBreed"
+                    value={}
+                    label="Sub-Breed"
+                    onChange={handleSubBreedChange}
+                    disabled
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select> */}
+                  <FormHelperText>Choose a sub-breed</FormHelperText>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <Button type="submit" variant="outlined">
+                  submit
+                </Button>
+              </Grid>
+            </form>
+          )}
         </Grid>
       </Grid>
       <Modal
