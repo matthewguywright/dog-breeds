@@ -17,6 +17,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBreeds } from "./features/breeds/breedSlice";
 import { AppDispatch } from "./app/store";
+import BreedItemRow from "./component/BreedItemRow";
 
 function App() {
   const [open, setOpen] = React.useState(false);
@@ -64,53 +65,31 @@ function App() {
             </Typography>
           )}
 
-          {breed.breeds.length && (
-            <form id="dogForm" noValidate onSubmit={handleSubmit}>
-              <Grid item xs={12}>
-                <FormControl sx={{ m: 1, minWidth: 120 }}>
-                  <InputLabel id="breed-label">Breed</InputLabel>
-                  {/* <Select
-                    labelId="breed-label"
-                    id="breed"
-                    value={}
-                    label="Breed"
-                    onChange={handleBreedChange}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select> */}
-                  <FormHelperText>Choose a breed</FormHelperText>
-                </FormControl>
-                <FormControl sx={{ m: 1, minWidth: 120 }}>
-                  <InputLabel id="sub-breed-label">Sub-Breed</InputLabel>
-                  {/* <Select
-                    labelId="sub-breed-label"
-                    id="subBreed"
-                    value={}
-                    label="Sub-Breed"
-                    onChange={handleSubBreedChange}
-                    disabled
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select> */}
-                  <FormHelperText>Choose a sub-breed</FormHelperText>
-                </FormControl>
+          {breed.breeds?.length && (
+            <>
+              <Grid container>
+                <Grid item xs={3}>
+                  Breed
+                </Grid>
+                <Grid item xs={3}>
+                  Sub-Breed
+                </Grid>
+                <Grid item xs={3}>
+                  Image Count
+                </Grid>
+                <Grid item xs={3}></Grid>
               </Grid>
-              <Grid item xs={12}>
-                <Button type="submit" variant="outlined">
-                  submit
-                </Button>
-              </Grid>
-            </form>
+              <form id="dogForm" noValidate onSubmit={handleSubmit}>
+                <Grid item xs={12}>
+                  <BreedItemRow breeds={breed.breeds} />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button type="submit" variant="outlined">
+                    View Breed Images
+                  </Button>
+                </Grid>
+              </form>
+            </>
           )}
         </Grid>
       </Grid>

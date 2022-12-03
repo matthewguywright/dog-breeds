@@ -18,7 +18,6 @@ export const fetchBreeds = createAsyncThunk("breed/fetchBreeds", () => {
     for (const breed in res.data.message) {
       breedArray.push({ sub: res.data.message[breed], name: breed });
     }
-    console.log("store", breedArray);
     return breedArray;
   });
 });
