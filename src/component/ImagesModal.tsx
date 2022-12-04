@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
 import {
   Typography,
   Modal,
@@ -9,6 +8,7 @@ import {
   ImageList,
   ImageListItem,
 } from "@mui/material";
+import shuffle from "lodash/shuffle";
 
 function ImagesModal(props: any) {
   const breed = useSelector((state: any) => state.breed);
@@ -45,7 +45,7 @@ function ImagesModal(props: any) {
               cols={3}
               rowHeight={164}
             >
-              {breed.imageList.map((item: any, i: number) => (
+              {shuffle(breed.imageList).map((item: any, i: number) => (
                 <ImageListItem key={item + i}>
                   <img
                     src={`${item}?w=164&h=164&fit=crop&auto=format`}

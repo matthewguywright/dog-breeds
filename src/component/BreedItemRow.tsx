@@ -22,11 +22,24 @@ function BreedItemRow(props: any) {
   const dispatch = useDispatch();
   const breedSlice = useSelector((state: any) => state.breed);
 
+  const hasSubBreeds = (breed: string) => {
+    const breedInfo = allBreeds.find((item: any) => {
+      return item.breed === breed;
+    });
+    return breedInfo?.sub?.length;
+  };
+
   const addSelectedBreeds = () => {
     const alreadyExists = breedSlice.selectedBreeds.find((item: any) => {
       return item.breed === breed && item.subBreed === subBreed;
     });
-    if (breed && !alreadyExists) {
+    if (alreadyExists) {
+      return;
+    }
+    if (breed && !subBreed && hasSubBreeds(breed)) {
+      return;
+    }
+    if (breed) {
       dispatch(addSelectedBreed({ breed, subBreed }));
     }
   };
