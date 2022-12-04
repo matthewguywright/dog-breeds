@@ -4,13 +4,9 @@ import breedService from "../../services/breed.service";
 const initialState = {
   loading: false,
   breeds: [] as any[],
-  selectedBreeds: [{
-    breed: 'greyhound',
-    subBreed: 'italian'
-  }] as any[],
+  selectedBreeds: [] as any[],
   imageList: [] as any[],
   error: false,
-  rowCount: 1,
 };
 
 export const fetchBreeds = createAsyncThunk("breed/fetchBreeds", async () => {
@@ -36,7 +32,18 @@ export const fetchImages = createAsyncThunk(
 const breedSlice = createSlice({
   name: "breed",
   initialState,
-  reducers: {},
+  reducers: {
+    addSelectedBreed(state, action: any) {
+      state.selectedBreeds.push(action.payload);
+    },
+    removeSelectedBreed(state, action: any) {
+      state.selectedBreeds = state.selectedBreeds.filter((breed) => {
+        return (
+          breed.breed !== action.breed && breed.subBreed !== action.subBreed
+        );
+      });
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchBreeds.pending, (state) => {
       state.loading = true;

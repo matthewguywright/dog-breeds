@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
-  InputLabel,
   MenuItem,
-  FormHelperText,
   FormControl,
   Select,
-  Grid,
-  Chip,
-  Paper,
   IconButton,
   TextField,
 } from "@mui/material";
@@ -36,6 +31,7 @@ function BreedItemRow(props: any) {
     setBreed(e.target.value);
     setSubBreed("");
     setSubBreeds(subBreeds[0].sub);
+    // dispatch("addSelectedBreed", { breed, subBreed: "" });
   };
 
   const onSubBreedChange = (e: any) => {
