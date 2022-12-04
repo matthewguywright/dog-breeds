@@ -36,14 +36,6 @@ const breedSlice = createSlice({
     addSelectedBreed(state, action) {
       state.selectedBreeds.push(action.payload);
     },
-    removeSelectedBreed(state, action) {
-      state.selectedBreeds = state.selectedBreeds.filter((breed) => {
-        return (
-          breed.breed !== action.payload.breed &&
-          breed.subBreed !== action.payload.subBreed
-        );
-      });
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchBreeds.pending, (state) => {
@@ -64,6 +56,6 @@ const breedSlice = createSlice({
   },
 });
 
-export const { addSelectedBreed, removeSelectedBreed } = breedSlice.actions;
+export const { addSelectedBreed } = breedSlice.actions;
 
 export default breedSlice.reducer;

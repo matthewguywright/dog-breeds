@@ -11,10 +11,7 @@ import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import breedService from "../services/breed.service";
-import {
-  addSelectedBreed,
-  removeSelectedBreed,
-} from "../features/breeds/breedSlice";
+import { addSelectedBreed } from "../features/breeds/breedSlice";
 
 function BreedItemRow(props: any) {
   const [allBreeds, setAllBreeds] = useState(props.breeds);
