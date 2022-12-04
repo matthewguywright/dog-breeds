@@ -1,28 +1,42 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-export interface Breed {
-  sub: string;
-  name: string;
-}
+import breedService from "../../services/breed.service";
 
 const initialState = {
   loading: false,
-  breeds: [] as Breed[],
-  selectedBreeds: [] as Breed[],
+  breeds: [] as any[],
+  selectedBreeds: [] as any[],
   imageList: [],
   error: false,
 };
 
-export const fetchBreeds = createAsyncThunk("breed/fetchBreeds", () => {
-  return axios.get("/breeds/list/all").then((res) => {
-    const breedArray = [] as Breed[];
-    for (const breed in res.data.message) {
-      breedArray.push({ sub: res.data.message[breed], name: breed });
-    }
-    return breedArray;
-  });
+export const fetchBreeds = createAsyncThunk("breed/fetchBreeds", async () => {
+  const res = await breedService.getAll();
+  return res.data;
 });
+
+export const fetchImages = createAsyncThunk(
+  "breed/fetchImages",
+  async (breeds: any[]) => {
+    const res = await breedService.getImages(breeds);
+    return res.data;
+  }
+);
+
+export const getImageCount = createAsyncThunk(
+  "breed/getImageCount",
+  async (breed: string, subBreed: string) => {
+    const res = await breedService.getImageCount(breed, subBreed);
+    return res.data;
+  }
+);
+
+export const getSubBreeds = createAsyncThunk(
+  "breed/getSubBreeds",
+  async (breed: string) => {
+    const res = await breedService.getSubBreeds(breed);
+    return res.data;
+  }
+);
 
 const breedSlice = createSlice({
   name: "breed",
