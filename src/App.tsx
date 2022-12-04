@@ -1,5 +1,12 @@
 import React, { Suspense, useEffect, useRef, useState } from "react";
-import { Container, Grid, Typography, Button, Paper } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Typography,
+  Button,
+  Paper,
+  Alert,
+} from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -60,6 +67,10 @@ function App() {
             <>
               <form id="dogForm" noValidate onSubmit={handleSubmit}>
                 <Grid item xs={12}>
+                  <Alert severity="info" sx={{ mb: 2 }}>
+                    Choose desired breeds to view in the table below and click
+                    "View Images" to view them.
+                  </Alert>
                   <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="breed table">
                       <TableHead>
@@ -84,7 +95,7 @@ function App() {
                 </Grid>
                 <Grid item xs={12} sx={{ mt: 4 }}>
                   <Button type="submit" variant="outlined" sx={{ mr: 2 }}>
-                    View Breed Images
+                    View Images
                   </Button>
                   <Button onClick={clearFormHandler} variant="outlined">
                     Clear
