@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   InputLabel,
   MenuItem,
@@ -6,10 +6,11 @@ import {
   FormControl,
   Select,
   Grid,
-  Typography,
-  TextField,
+  Chip,
+  IconButton,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import ControlPointIcon from '@mui/icons-material/ControlPoint';
 
 function BreedItemRow(props: any) {
   const [allBreeds, setAllBreeds] = useState(props.breeds);
@@ -78,10 +79,14 @@ function BreedItemRow(props: any) {
       </Grid>
       <Grid item xs={3}>
         <span>
-          <TextField value={imageCount} disabled />
+          <Chip label={imageCount} color="primary" />
         </span>
       </Grid>
-      <Grid>+</Grid>
+      <Grid>
+        <IconButton aria-label="delete">
+          <ControlPointIcon />
+        </IconButton>
+      </Grid>
     </Grid>
   );
 }

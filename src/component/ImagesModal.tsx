@@ -1,22 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Typography,
   Modal,
   Box,
-  Card,
   Grid,
   ImageList,
   ImageListItem,
 } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../app/store";
-import { fetchImages } from "../features/images/imagesSlice";
 
 function ImagesModal(props: any) {
-  const [imageList, setImageList] = useState([]);
-  const [breedList, setBreedList] = useState(props.breedList);
-  const dispatch = useDispatch<AppDispatch>();
-  const images = useSelector((state: any) => state.images);
+  const [imageList, setImageList] = useState(props.imageList);
 
   const style = {
     position: "absolute" as "absolute",
@@ -31,10 +24,6 @@ function ImagesModal(props: any) {
     px: 4,
     pb: 3,
   };
-
-  useEffect(() => {
-    dispatch(fetchImages(breedList));
-  }, []);
 
   return (
     <Modal
@@ -54,7 +43,7 @@ function ImagesModal(props: any) {
               cols={3}
               rowHeight={164}
             >
-              {imageList.map((item, i) => (
+              {imageList.map((item: any, i: number) => (
                 <ImageListItem key={item + i}>
                   <img
                     src={`${item}?w=164&h=164&fit=crop&auto=format`}

@@ -27,9 +27,7 @@ function App() {
     <Container>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Suspense>
-            
-          </Suspense>
+          <Suspense></Suspense>
           {breed.loading && <Typography variant="h2">Loading...</Typography>}
 
           {breed.error && (
@@ -69,7 +67,7 @@ function App() {
       <ImagesModal
         isOpen={open}
         handleClose={handleClose}
-        breedList={breed.selectedBreeds}
+        imageList={breed.imageList}
       />
     </Container>
   );

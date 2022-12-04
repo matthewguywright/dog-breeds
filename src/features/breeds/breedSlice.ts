@@ -10,7 +10,7 @@ const initialState = {
   loading: false,
   breeds: [] as Breed[],
   selectedBreeds: [] as Breed[],
-  images: [],
+  imageList: [],
   error: false,
 };
 

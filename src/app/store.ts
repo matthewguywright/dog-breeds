@@ -1,11 +1,9 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import breedSlice from "../features/breeds/breedSlice";
-import imagesSlice from "../features/images/imagesSlice";
 
 export const store = configureStore({
   reducer: {
     breed: breedSlice,
-    images: imagesSlice,
   },
 });
 
