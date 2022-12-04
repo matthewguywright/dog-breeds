@@ -7,7 +7,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBreeds, fetchImages } from "./features/breeds/breedSlice";
+import {
+  fetchBreeds,
+  fetchImages,
+  clearImageList,
+} from "./features/breeds/breedSlice";
 import { AppDispatch } from "./app/store";
 import BreedItemRow from "./component/BreedItemRow";
 import ImagesModal from "./component/ImagesModal";
@@ -31,7 +35,7 @@ function App() {
 
   const clearFormHandler = (event: any) => {
     event.preventDefault();
-    // dispatch();
+    dispatch(clearImageList());
   };
 
   useEffect(() => {

@@ -36,6 +36,10 @@ const breedSlice = createSlice({
     addSelectedBreed(state, action) {
       state.selectedBreeds.push(action.payload);
     },
+    clearImageList(state) {
+      state.imageList = [] as any[];
+      state.selectedBreeds = [] as any[];
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchBreeds.pending, (state) => {
@@ -56,6 +60,6 @@ const breedSlice = createSlice({
   },
 });
 
-export const { addSelectedBreed } = breedSlice.actions;
+export const { addSelectedBreed, clearImageList } = breedSlice.actions;
 
 export default breedSlice.reducer;
