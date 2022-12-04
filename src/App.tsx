@@ -64,14 +64,12 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchBreeds());
-    setRowCount(breed.rowCount);
   }, []);
 
   return (
-    <Container>
+    <Container sx={{ pt: 3, pb: 3 }}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Suspense></Suspense>
           {breed.loading && <Typography variant="h2">Loading...</Typography>}
 
           {breed.error && (

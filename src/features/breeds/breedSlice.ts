@@ -7,7 +7,6 @@ const initialState = {
   selectedBreeds: [] as any[],
   imageList: [] as any[],
   error: false,
-  rowCount: 1,
 };
 
 export const fetchBreeds = createAsyncThunk("breed/fetchBreeds", async () => {
