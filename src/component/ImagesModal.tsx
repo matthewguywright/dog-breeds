@@ -7,6 +7,7 @@ import {
   Grid,
   ImageList,
   ImageListItem,
+  Alert,
 } from "@mui/material";
 import shuffle from "lodash/shuffle";
 
@@ -36,7 +37,7 @@ function ImagesModal(props: any) {
     >
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Gallery
+          Canine Gallery
         </Typography>
         {breed.imageList.length ? (
           <Grid container spacing={2}>
@@ -58,7 +59,9 @@ function ImagesModal(props: any) {
             </ImageList>
           </Grid>
         ) : (
-          <p>No images to display. Make a selection.</p>
+          <Alert severity="info">
+            No images to display. Please make a selection.
+          </Alert>
         )}
       </Box>
     </Modal>

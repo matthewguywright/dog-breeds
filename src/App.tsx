@@ -31,6 +31,7 @@ function App() {
 
   const addRowHandler = (event: any) => {
     event.preventDefault();
+    console.log("ROW ADDED");
   };
 
   const clearFormHandler = (event: any) => {
@@ -76,18 +77,13 @@ function App() {
                           addRowHandler={addRowHandler}
                           breeds={breed.breeds}
                         />
-                        <BreedItemRow
-                          rowId="1"
-                          addRowHandler={addRowHandler}
-                          breeds={breed.breeds}
-                        />
                         {/* ))} */}
                       </TableBody>
                     </Table>
                   </TableContainer>
                 </Grid>
-                <Grid item xs={12}>
-                  <Button type="submit" variant="outlined">
+                <Grid item xs={12} sx={{ mt: 4 }}>
+                  <Button type="submit" variant="outlined" sx={{ mr: 2 }}>
                     View Breed Images
                   </Button>
                   <Button onClick={clearFormHandler} variant="outlined">
