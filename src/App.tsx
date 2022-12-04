@@ -100,11 +100,7 @@ function App() {
           )}
         </Grid>
       </Grid>
-      <ImagesModal
-        isOpen={open}
-        handleClose={handleClose}
-        imageList={breed.imageList}
-      />
+      <ImagesModal isOpen={open} handleClose={handleClose} />
     </Container>
   );
 }

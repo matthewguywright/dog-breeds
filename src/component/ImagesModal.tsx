@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 import {
   Typography,
   Modal,
@@ -9,14 +11,14 @@ import {
 } from "@mui/material";
 
 function ImagesModal(props: any) {
-  const [imageList, setImageList] = useState(props.imageList);
+  const breed = useSelector((state: any) => state.breed);
 
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: 800,
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -24,10 +26,6 @@ function ImagesModal(props: any) {
     px: 4,
     pb: 3,
   };
-
-  useEffect(() => {
-    console.log(imageList);
-  }, [imageList]);
 
   return (
     <Modal
@@ -40,14 +38,14 @@ function ImagesModal(props: any) {
         <Typography id="modal-modal-title" variant="h6" component="h2">
           Gallery
         </Typography>
-        {imageList.length ? (
+        {breed.imageList.length ? (
           <Grid container spacing={2}>
             <ImageList
-              sx={{ width: 500, height: 450 }}
+              sx={{ width: 750, height: 450 }}
               cols={3}
               rowHeight={164}
             >
-              {imageList.map((item: any, i: number) => (
+              {breed.imageList.map((item: any, i: number) => (
                 <ImageListItem key={item + i}>
                   <img
                     src={`${item}?w=164&h=164&fit=crop&auto=format`}

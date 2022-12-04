@@ -31,16 +31,18 @@ class BreedDataService {
     });
   }
   getImageCount(breed: Breeds) {
-    if (!breed.subBreed) {
+    if (breed.breed && !breed.subBreed) {
       return http.get(`/breed/${breed.breed}/images`).then((res) => {
         return res.data.message.length;
       });
-    } else {
+    } else if (breed.breed && breed.subBreed) {
       return http
         .get(`/breed/${breed.breed}/${breed.subBreed}/images`)
         .then((res) => {
           return res.data.message.length;
         });
+    } else {
+      return null;
     }
   }
 }

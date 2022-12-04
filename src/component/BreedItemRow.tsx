@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   InputLabel,
   MenuItem,
@@ -19,6 +19,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
+import breedService from "../services/breed.service";
 
 function BreedItemRow(props: any) {
   const [allBreeds, setAllBreeds] = useState(props.breeds);
@@ -33,12 +34,23 @@ function BreedItemRow(props: any) {
       return breed.breed === e.target.value;
     });
     setBreed(e.target.value);
+    setSubBreed("");
     setSubBreeds(subBreeds[0].sub);
   };
 
   const onSubBreedChange = (e: any) => {
     setSubBreed(e.target.value);
   };
+
+  useEffect(() => {
+    async function getImageCount() {
+      if (breed) {
+        const count = await breedService.getImageCount({ breed, subBreed });
+        setImageCount(count);
+      }
+    }
+    getImageCount();
+  }, [breed, subBreed]);
 
   return (
     <TableRow
