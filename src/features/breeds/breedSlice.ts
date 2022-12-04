@@ -15,7 +15,7 @@ const initialState = {
 };
 
 export const fetchBreeds = createAsyncThunk("breed/fetchBreeds", () => {
-  return axios.get("https://dog.ceo/api/breeds/list/all").then((res) => {
+  return axios.get("/breeds/list/all").then((res) => {
     const breedArray = [] as Breed[];
     for (const breed in res.data.message) {
       breedArray.push({ sub: res.data.message[breed], name: breed });

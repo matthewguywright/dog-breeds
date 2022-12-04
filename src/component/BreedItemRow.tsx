@@ -8,9 +8,10 @@ import {
   Grid,
   Chip,
   IconButton,
+  TextField,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import ControlPointIcon from '@mui/icons-material/ControlPoint';
+import ControlPointIcon from "@mui/icons-material/ControlPoint";
 
 function BreedItemRow(props: any) {
   const [allBreeds, setAllBreeds] = useState(props.breeds);
@@ -36,14 +37,7 @@ function BreedItemRow(props: any) {
     <Grid container>
       <Grid item xs={3}>
         <FormControl sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="breed-label">Breed</InputLabel>
-          <Select
-            labelId="breed-label"
-            id="breed"
-            value={breed}
-            onChange={onBreedChange}
-            label="Breed"
-          >
+          <Select id="breed" value={breed} onChange={onBreedChange}>
             {allBreeds.map((breed: any) => (
               <MenuItem key={breed.name} value={breed.name}>
                 {breed.name}
@@ -57,14 +51,7 @@ function BreedItemRow(props: any) {
       <Grid item xs={3}>
         {subBreeds.length ? (
           <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="sub-breed-label">Sub-Breed</InputLabel>
-            <Select
-              labelId="sub-breed-label"
-              id="subBreed"
-              value={subBreed}
-              onChange={onSubBreedChange}
-              label="Sub-Breed"
-            >
+            <Select id="subBreed" value={subBreed} onChange={onSubBreedChange}>
               {subBreeds?.map((subBreed: any) => (
                 <MenuItem key={subBreed} value={subBreed}>
                   {subBreed}
@@ -79,11 +66,11 @@ function BreedItemRow(props: any) {
       </Grid>
       <Grid item xs={3}>
         <span>
-          <Chip label={imageCount} color="primary" />
+          <TextField disabled value={imageCount} />
         </span>
       </Grid>
       <Grid>
-        <IconButton aria-label="delete">
+        <IconButton onClick={props.addRowHandler} aria-label="delete">
           <ControlPointIcon />
         </IconButton>
       </Grid>

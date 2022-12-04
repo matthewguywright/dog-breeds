@@ -19,6 +19,11 @@ function App() {
     handleOpen();
   };
 
+  const addRowHandler = (event: any) => {
+    event.preventDefault();
+    // dispatch();
+  };
+
   useEffect(() => {
     dispatch(fetchBreeds());
   }, []);
@@ -52,7 +57,7 @@ function App() {
               </Grid>
               <form id="dogForm" noValidate onSubmit={handleSubmit}>
                 <Grid item xs={12}>
-                  <BreedItemRow breeds={breed.breeds} />
+                  <BreedItemRow addRowHandler={addRowHandler} breeds={breed.breeds} />
                 </Grid>
                 <Grid item xs={12}>
                   <Button type="submit" variant="outlined">
