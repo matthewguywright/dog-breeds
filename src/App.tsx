@@ -69,7 +69,7 @@ function App() {
                 <Grid item xs={12}>
                   <Alert severity="info" sx={{ mb: 2 }}>
                     Choose desired breeds to view in the table below and click
-                    "View Images" to view them.
+                    the "View Images" button to view them.
                   </Alert>
                   <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="breed table">
