@@ -6,15 +6,15 @@ import {
   IconButton,
   TextField,
 } from "@mui/material";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import breedService from "../services/breed.service";
+import {
+  addSelectedBreed,
+  removeSelectedBreed,
+} from "../features/breeds/breedSlice";
 
 function BreedItemRow(props: any) {
   const [allBreeds, setAllBreeds] = useState(props.breeds);
@@ -23,6 +23,16 @@ function BreedItemRow(props: any) {
   const [subBreeds, setSubBreeds] = useState([]);
   const [imageCount, setImageCount] = useState(0);
   const dispatch = useDispatch();
+  const breedSlice = useSelector((state: any) => state.breed);
+
+  const addSelectedBreeds = () => {
+    const alreadyExists = breedSlice.selectedBreeds.find((item: any) => {
+      return item.breed === breed && item.subBreed === subBreed;
+    });
+    if (breed && !alreadyExists) {
+      dispatch(addSelectedBreed({ breed, subBreed }));
+    }
+  };
 
   const onBreedChange = (e: any) => {
     const subBreeds = allBreeds.filter((breed: any) => {
@@ -31,7 +41,6 @@ function BreedItemRow(props: any) {
     setBreed(e.target.value);
     setSubBreed("");
     setSubBreeds(subBreeds[0].sub);
-    // dispatch("addSelectedBreed", { breed, subBreed: "" });
   };
 
   const onSubBreedChange = (e: any) => {
@@ -46,6 +55,7 @@ function BreedItemRow(props: any) {
       }
     }
     getImageCount();
+    addSelectedBreeds();
   }, [breed, subBreed]);
 
   return (

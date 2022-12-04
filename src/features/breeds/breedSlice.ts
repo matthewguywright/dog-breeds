@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import breedService from "../../services/breed.service";
 
 const initialState = {
@@ -33,13 +33,14 @@ const breedSlice = createSlice({
   name: "breed",
   initialState,
   reducers: {
-    addSelectedBreed(state, action: any) {
+    addSelectedBreed(state, action) {
       state.selectedBreeds.push(action.payload);
     },
-    removeSelectedBreed(state, action: any) {
+    removeSelectedBreed(state, action) {
       state.selectedBreeds = state.selectedBreeds.filter((breed) => {
         return (
-          breed.breed !== action.breed && breed.subBreed !== action.subBreed
+          breed.breed !== action.payload.breed &&
+          breed.subBreed !== action.payload.subBreed
         );
       });
     },
@@ -62,5 +63,7 @@ const breedSlice = createSlice({
     });
   },
 });
+
+export const { addSelectedBreed, removeSelectedBreed } = breedSlice.actions;
 
 export default breedSlice.reducer;
