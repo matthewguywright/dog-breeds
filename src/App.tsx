@@ -42,7 +42,7 @@ function App() {
     for (let i = 0; i < rowCount; i++) {
       rows.push(
         <BreedItemRow
-          rowId="0"
+          rowId={i}
           addRowHandler={addRowHandler}
           breeds={breed.breeds}
         />
