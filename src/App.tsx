@@ -27,6 +27,7 @@ function App() {
   const dispatch = useDispatch<AppDispatch>();
   const breed = useSelector((state: any) => state.breed);
   const [open, setOpen] = useState(false);
+  const [rowCount, setRowCount] = useState(1);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -36,18 +37,34 @@ function App() {
     handleOpen();
   };
 
+  const getRows = () => {
+    let rows = [] as any[];
+    for (let i = 0; i < rowCount; i++) {
+      rows.push(
+        <BreedItemRow
+          rowId="0"
+          addRowHandler={addRowHandler}
+          breeds={breed.breeds}
+        />
+      );
+    }
+    return rows;
+  };
+
   const addRowHandler = (event: any) => {
     event.preventDefault();
-    console.log("ROW ADDED");
+    setRowCount(() => rowCount + 1);
   };
 
   const clearFormHandler = (event: any) => {
     event.preventDefault();
     dispatch(clearImageList());
+    setRowCount(() => 1);
   };
 
   useEffect(() => {
     dispatch(fetchBreeds());
+    setRowCount(breed.rowCount);
   }, []);
 
   return (
@@ -69,7 +86,7 @@ function App() {
                 <Grid item xs={12}>
                   <Alert severity="info" sx={{ mb: 2 }}>
                     Choose desired breeds to view in the table below and click
-                    the "View Images" button to view them.
+                    the "Generate" button to view them.
                   </Alert>
                   <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="breed table">
@@ -81,21 +98,13 @@ function App() {
                           <TableCell>Action</TableCell>
                         </TableRow>
                       </TableHead>
-                      <TableBody>
-                        {/* {rows.map(() => ( */}
-                        <BreedItemRow
-                          rowId="0"
-                          addRowHandler={addRowHandler}
-                          breeds={breed.breeds}
-                        />
-                        {/* ))} */}
-                      </TableBody>
+                      <TableBody>{getRows()}</TableBody>
                     </Table>
                   </TableContainer>
                 </Grid>
                 <Grid item xs={12} sx={{ mt: 4 }}>
                   <Button type="submit" variant="outlined" sx={{ mr: 2 }}>
-                    View Images
+                    Generate
                   </Button>
                   <Button onClick={clearFormHandler} variant="outlined">
                     Clear

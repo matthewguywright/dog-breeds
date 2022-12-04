@@ -1,5 +1,6 @@
 import http from "../http-common";
 import axios from "axios";
+import uniq from "lodash/uniq";
 
 export interface Breeds {
   breed: string;
@@ -27,7 +28,7 @@ class BreedDataService {
       res.map((apiCall: any) => {
         return (images = [...images, ...apiCall.data.message]);
       });
-      return images;
+      return uniq(images);
     });
   }
   getImageCount(breed: Breeds) {
