@@ -7,9 +7,16 @@ import {
   Select,
   Grid,
   Chip,
+  Paper,
   IconButton,
   TextField,
 } from "@mui/material";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 
@@ -23,7 +30,7 @@ function BreedItemRow(props: any) {
 
   const onBreedChange = (e: any) => {
     const subBreeds = allBreeds.filter((breed: any) => {
-      return breed.name === e.target.value;
+      return breed.breed === e.target.value;
     });
     setBreed(e.target.value);
     setSubBreeds(subBreeds[0].sub);
@@ -34,21 +41,23 @@ function BreedItemRow(props: any) {
   };
 
   return (
-    <Grid container>
-      <Grid item xs={3}>
+    <TableRow
+      sx={{
+        "&:last-child td, &:last-child th": { border: 0 },
+      }}
+    >
+      <TableCell component="th" scope="row">
         <FormControl sx={{ m: 1, minWidth: 120 }}>
           <Select id="breed" value={breed} onChange={onBreedChange}>
             {allBreeds.map((breed: any) => (
-              <MenuItem key={breed.name} value={breed.name}>
-                {breed.name}
+              <MenuItem key={breed.breed} value={breed.breed}>
+                {breed.breed}
               </MenuItem>
             ))}
           </Select>
-          <FormHelperText>Choose a breed</FormHelperText>
         </FormControl>
-      </Grid>
-
-      <Grid item xs={3}>
+      </TableCell>
+      <TableCell>
         {subBreeds.length ? (
           <FormControl sx={{ m: 1, minWidth: 120 }}>
             <Select id="subBreed" value={subBreed} onChange={onSubBreedChange}>
@@ -58,23 +67,21 @@ function BreedItemRow(props: any) {
                 </MenuItem>
               ))}
             </Select>
-            <FormHelperText>Choose a sub-breed</FormHelperText>
           </FormControl>
         ) : (
-          <span>n/a</span>
+          <TextField value="n/a" disabled />
         )}
-      </Grid>
-      <Grid item xs={3}>
-        <span>
-          <TextField disabled value={imageCount} />
-        </span>
-      </Grid>
-      <Grid>
+      </TableCell>
+      <TableCell>
+        {" "}
+        <TextField disabled value={imageCount} />
+      </TableCell>
+      <TableCell>
         <IconButton onClick={props.addRowHandler} aria-label="delete">
           <ControlPointIcon />
         </IconButton>
-      </Grid>
-    </Grid>
+      </TableCell>
+    </TableRow>
   );
 }
 

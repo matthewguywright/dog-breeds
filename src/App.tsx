@@ -1,13 +1,18 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { Container, Grid, Typography, Button } from "@mui/material";
+import { Container, Grid, Typography, Button, Paper } from "@mui/material";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBreeds } from "./features/breeds/breedSlice";
+import { fetchBreeds, fetchImages } from "./features/breeds/breedSlice";
 import { AppDispatch } from "./app/store";
 import BreedItemRow from "./component/BreedItemRow";
 import ImagesModal from "./component/ImagesModal";
 
 function App() {
-  const [breedList, setBreedList] = useState([]);
   const dispatch = useDispatch<AppDispatch>();
   const breed = useSelector((state: any) => state.breed);
   const [open, setOpen] = useState(false);
@@ -21,11 +26,27 @@ function App() {
 
   const addRowHandler = (event: any) => {
     event.preventDefault();
+  };
+
+  const clearFormHandler = (event: any) => {
+    event.preventDefault();
     // dispatch();
   };
 
   useEffect(() => {
     dispatch(fetchBreeds());
+    dispatch(
+      fetchImages([
+        {
+          breed: "hound",
+          subBreed: "blood",
+        },
+        {
+          breed: "greyhound",
+          subBreed: "italian",
+        },
+      ])
+    );
   }, []);
 
   return (
@@ -43,25 +64,35 @@ function App() {
 
           {breed.breeds?.length && (
             <>
-              <Grid container>
-                <Grid item xs={3}>
-                  Breed
-                </Grid>
-                <Grid item xs={3}>
-                  Sub-Breed
-                </Grid>
-                <Grid item xs={3}>
-                  Image Count
-                </Grid>
-                <Grid item xs={3}></Grid>
-              </Grid>
               <form id="dogForm" noValidate onSubmit={handleSubmit}>
                 <Grid item xs={12}>
-                  <BreedItemRow addRowHandler={addRowHandler} breeds={breed.breeds} />
+                  <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} aria-label="breed table">
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Breed</TableCell>
+                          <TableCell>Sub-Breed</TableCell>
+                          <TableCell>Image Count</TableCell>
+                          <TableCell>Action</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {/* {rows.map(() => ( */}
+                        <BreedItemRow
+                          addRowHandler={addRowHandler}
+                          breeds={breed.breeds}
+                        />
+                        {/* ))} */}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
                 </Grid>
                 <Grid item xs={12}>
                   <Button type="submit" variant="outlined">
                     View Breed Images
+                  </Button>
+                  <Button onClick={clearFormHandler} variant="outlined">
+                    Clear
                   </Button>
                 </Grid>
               </form>

@@ -10,7 +10,7 @@ class BreedDataService {
   getAll() {
     return http.get("/breeds/list/all");
   }
-  getImages(breeds: Breeds[]) {
+  getImages(breeds: any[]) {
     const apiCalls = [] as any[];
     breeds.forEach((breed) => {
       if (!breed.subBreed) {
@@ -22,20 +22,26 @@ class BreedDataService {
       }
     });
 
-    return axios.all(apiCalls).then((results: any) => {
-      console.log(results);
-      return results;
+    return axios.all(apiCalls).then((res: any) => {
+      let images: any[] = [];
+      res.map((apiCall: any) => {
+        return (images = [...images, ...apiCall.data.message]);
+      });
+      return images;
     });
   }
   getImageCount(breed: Breeds) {
     if (!breed.subBreed) {
-      return http.get(`/breed/${breed.breed}/images`);
+      return http.get(`/breed/${breed.breed}/images`).then((res) => {
+        return res.data.message.length;
+      });
     } else {
-      return http.get(`/breed/${breed.breed}/${breed.subBreed}/images`);
+      return http
+        .get(`/breed/${breed.breed}/${breed.subBreed}/images`)
+        .then((res) => {
+          return res.data.message.length;
+        });
     }
-  }
-  getSubBreeds(breed: string) {
-    return http.get(`/breed/${breed}/list`);
   }
 }
 

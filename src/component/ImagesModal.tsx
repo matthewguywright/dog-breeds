@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Typography,
   Modal,
@@ -24,6 +24,10 @@ function ImagesModal(props: any) {
     px: 4,
     pb: 3,
   };
+
+  useEffect(() => {
+    console.log(imageList);
+  }, [imageList]);
 
   return (
     <Modal

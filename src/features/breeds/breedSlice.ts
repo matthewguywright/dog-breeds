@@ -5,36 +5,28 @@ const initialState = {
   loading: false,
   breeds: [] as any[],
   selectedBreeds: [] as any[],
-  imageList: [],
+  imageList: [] as any[],
   error: false,
+  rowCount: 1,
 };
 
 export const fetchBreeds = createAsyncThunk("breed/fetchBreeds", async () => {
   const res = await breedService.getAll();
-  return res.data;
+  const objectsToArray = [];
+  for (const breed in res.data.message) {
+    objectsToArray.push({
+      breed: breed,
+      sub: res.data.message[breed],
+    });
+  }
+  return objectsToArray;
 });
 
 export const fetchImages = createAsyncThunk(
   "breed/fetchImages",
   async (breeds: any[]) => {
     const res = await breedService.getImages(breeds);
-    return res.data;
-  }
-);
-
-export const getImageCount = createAsyncThunk<string, void>(
-  "breed/getImageCount",
-  async (breed: any) => {
-    const res = await breedService.getImageCount(breed);
-    return res.data.message.length;
-  }
-);
-
-export const getSubBreeds = createAsyncThunk(
-  "breed/getSubBreeds",
-  async (breed: string) => {
-    const res = await breedService.getSubBreeds(breed);
-    return res.data;
+    return res;
   }
 );
 
@@ -54,6 +46,9 @@ const breedSlice = createSlice({
       state.loading = false;
       state.breeds = [];
       state.error = true;
+    });
+    builder.addCase(fetchImages.fulfilled, (state, action) => {
+      state.imageList = action?.payload;
     });
   },
 });
