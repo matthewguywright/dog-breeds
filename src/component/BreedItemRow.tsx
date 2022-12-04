@@ -60,7 +60,12 @@ function BreedItemRow(props: any) {
     >
       <TableCell component="th" scope="row">
         <FormControl sx={{ m: 1, minWidth: 120 }}>
-          <Select id="breed" value={breed} onChange={onBreedChange}>
+          <Select
+            id={"breed" + props.rowId}
+            name={"breed" + props.rowId}
+            value={breed}
+            onChange={onBreedChange}
+          >
             {allBreeds.map((breed: any) => (
               <MenuItem key={breed.breed} value={breed.breed}>
                 {breed.breed}
@@ -72,7 +77,12 @@ function BreedItemRow(props: any) {
       <TableCell>
         {subBreeds.length ? (
           <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <Select id="subBreed" value={subBreed} onChange={onSubBreedChange}>
+            <Select
+              id={"subBreed" + props.rowId}
+              name={"breed" + props.rowId}
+              value={subBreed}
+              onChange={onSubBreedChange}
+            >
               {subBreeds?.map((subBreed: any) => (
                 <MenuItem key={subBreed} value={subBreed}>
                   {subBreed}

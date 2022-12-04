@@ -4,7 +4,10 @@ import breedService from "../../services/breed.service";
 const initialState = {
   loading: false,
   breeds: [] as any[],
-  selectedBreeds: [] as any[],
+  selectedBreeds: [{
+    breed: 'greyhound',
+    subBreed: 'italian'
+  }] as any[],
   imageList: [] as any[],
   error: false,
   rowCount: 1,

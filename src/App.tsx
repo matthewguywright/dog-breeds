@@ -21,6 +21,7 @@ function App() {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    dispatch(fetchImages(breed.selectedBreeds));
     handleOpen();
   };
 
@@ -35,18 +36,6 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchBreeds());
-    dispatch(
-      fetchImages([
-        {
-          breed: "hound",
-          subBreed: "blood",
-        },
-        {
-          breed: "greyhound",
-          subBreed: "italian",
-        },
-      ])
-    );
   }, []);
 
   return (
@@ -79,6 +68,12 @@ function App() {
                       <TableBody>
                         {/* {rows.map(() => ( */}
                         <BreedItemRow
+                          rowId="0"
+                          addRowHandler={addRowHandler}
+                          breeds={breed.breeds}
+                        />
+                        <BreedItemRow
+                          rowId="1"
                           addRowHandler={addRowHandler}
                           breeds={breed.breeds}
                         />
