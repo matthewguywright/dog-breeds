@@ -22,11 +22,11 @@ export const fetchImages = createAsyncThunk(
   }
 );
 
-export const getImageCount = createAsyncThunk(
+export const getImageCount = createAsyncThunk<string, void>(
   "breed/getImageCount",
-  async (breed: string, subBreed: string) => {
-    const res = await breedService.getImageCount(breed, subBreed);
-    return res.data;
+  async (breed: any) => {
+    const res = await breedService.getImageCount(breed);
+    return res.data.message.length;
   }
 );
 

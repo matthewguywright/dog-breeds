@@ -27,11 +27,11 @@ class BreedDataService {
       return results;
     });
   }
-  getImageCount(breed: string, subBreed: string) {
-    if (!subBreed) {
-      return http.get(`/breed/${breed}/images`);
+  getImageCount(breed: Breeds) {
+    if (!breed.subBreed) {
+      return http.get(`/breed/${breed.breed}/images`);
     } else {
-      return http.get(`/breed/${breed}/${subBreed}/images`);
+      return http.get(`/breed/${breed.breed}/${breed.subBreed}/images`);
     }
   }
   getSubBreeds(breed: string) {
