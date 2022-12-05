@@ -99,7 +99,7 @@ function App() {
                         <TableRow>
                           <TableCell>Breed</TableCell>
                           <TableCell>Sub-Breed</TableCell>
-                          <TableCell># of Images</TableCell>
+                          <TableCell>Image Count</TableCell>
                           <TableCell>Action</TableCell>
                         </TableRow>
                       </TableHead>
