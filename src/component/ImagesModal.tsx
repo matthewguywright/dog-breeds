@@ -28,6 +28,10 @@ function ImagesModal(props: any) {
     pb: 3,
   };
 
+  const handleImageClick = (e: any, url: string) => {
+    window.open(url, "_blank");
+  };
+
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -53,6 +57,8 @@ function ImagesModal(props: any) {
                     srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                     alt={item}
                     loading="lazy"
+                    onClick={(e) => handleImageClick(e, item)}
+                    style={{ cursor: "pointer" }}
                   />
                 </ImageListItem>
               ))}
