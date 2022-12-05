@@ -22,6 +22,7 @@ import {
 import { AppDispatch } from "./app/store";
 import BreedItemRow from "./component/BreedItemRow";
 import ImagesModal from "./component/ImagesModal";
+import "./App.css";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -68,14 +69,17 @@ function App() {
 
   return (
     <Container sx={{ pt: 3, pb: 3 }}>
+      <Grid container sx={{ mb: 2 }}>
+        <Grid item xs={12} className="banner"></Grid>
+      </Grid>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           {breed.loading && <Typography variant="h2">Loading...</Typography>}
 
           {breed.error && (
-            <Typography variant="h2" component="p">
+            <Alert severity="error" sx={{ mb: 2 }}>
               There was an application error.
-            </Typography>
+            </Alert>
           )}
 
           {breed.breeds?.length && (
