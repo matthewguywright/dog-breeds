@@ -10,6 +10,7 @@ import {
   Alert,
 } from "@mui/material";
 import shuffle from "lodash/shuffle";
+import withAlertStyling from "./withAlertStyling";
 
 function ImagesModal(props: any) {
   const breed = useSelector((state: any) => state.breed);
@@ -31,6 +32,8 @@ function ImagesModal(props: any) {
   const handleImageClick = (e: any, url: string) => {
     window.open(url, "_blank");
   };
+
+  const AlertMessage = withAlertStyling(Alert);
 
   return (
     <Modal
@@ -65,9 +68,9 @@ function ImagesModal(props: any) {
             </ImageList>
           </Grid>
         ) : (
-          <Alert severity="info">
+          <AlertMessage severity="warning">
             No images to display. Please make a selection.
-          </Alert>
+          </AlertMessage>
         )}
       </Box>
     </Modal>

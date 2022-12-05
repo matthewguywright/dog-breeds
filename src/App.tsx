@@ -23,6 +23,7 @@ import { AppDispatch } from "./app/store";
 import BreedItemRow from "./component/BreedItemRow";
 import ImagesModal from "./component/ImagesModal";
 import "./App.css";
+import withAlertStyling from "./component/withAlertStyling";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -43,6 +44,7 @@ function App() {
     for (let i = 0; i < rowCount; i++) {
       rows.push(
         <BreedItemRow
+          key={i}
           rowId={i}
           addRowHandler={addRowHandler}
           breeds={breed.breeds}
@@ -67,6 +69,8 @@ function App() {
     dispatch(fetchBreeds());
   }, []);
 
+  const AlertMessage = withAlertStyling(Alert);
+
   return (
     <Container sx={{ pt: 3, pb: 3 }}>
       <Grid container sx={{ mb: 2 }}>
@@ -77,9 +81,9 @@ function App() {
           {breed.loading && <Typography variant="h2">Loading...</Typography>}
 
           {breed.error && (
-            <Alert severity="error" sx={{ mb: 2 }}>
+            <AlertMessage severity="error">
               There was an application error.
-            </Alert>
+            </AlertMessage>
           )}
 
           {breed.breeds?.length && (
@@ -89,10 +93,10 @@ function App() {
                   <Typography variant="h2" sx={{ mb: 2 }}>
                     Dog Poster Generator
                   </Typography>
-                  <Typography variant="body2" sx={{ mb: 2 }}>
+                  <AlertMessage severity="info">
                     Choose desired breeds to view in the table below and click
                     the "Generate" button to view them.
-                  </Typography>
+                  </AlertMessage>
                   <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="breed table">
                       <TableHead>
