@@ -126,10 +126,11 @@ function App() {
                   onClick={handleSubmit}
                   variant="contained"
                   sx={{ mr: 2 }}
+                  disabled={!breed.selectedBreeds.length}
                 >
                   Generate
                 </Button>
-                <Button onClick={clearFormHandler} variant="outlined">
+                <Button onClick={clearFormHandler} variant="outlined" disabled={!breed.selectedBreeds.length}>
                   Reset
                 </Button>
               </Grid>
