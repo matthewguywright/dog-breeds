@@ -6,13 +6,13 @@ import {
   Button,
   Paper,
   Alert,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
 } from "@mui/material";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchBreeds,
@@ -22,14 +22,15 @@ import {
 import { AppDispatch } from "./app/store";
 import BreedItemRow from "./component/BreedItemRow";
 import ImagesModal from "./component/ImagesModal";
-import "./App.css";
 import withAlertStyling from "./component/withAlertStyling";
+import "./App.css";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
   const breed = useSelector((state: any) => state.breed);
   const [open, setOpen] = useState(false);
   const [rowCount, setRowCount] = useState(1);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -88,38 +89,40 @@ function App() {
 
           {breed.breeds?.length && (
             <>
-              <form id="dogForm" noValidate onSubmit={handleSubmit}>
-                <Grid item xs={12}>
-                  <Typography variant="h2" sx={{ mb: 2 }}>
-                    Dog Poster Generator
-                  </Typography>
-                  <AlertMessage severity="info">
-                    Choose desired breeds to view in the table below and click
-                    the "Generate" button to view them.
-                  </AlertMessage>
-                  <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 650 }} aria-label="breed table">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Breed</TableCell>
-                          <TableCell>Sub-Breed</TableCell>
-                          <TableCell>Image Count</TableCell>
-                          <TableCell>Action</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>{getRows()}</TableBody>
-                    </Table>
-                  </TableContainer>
-                </Grid>
-                <Grid item xs={12} sx={{ mt: 4 }}>
-                  <Button type="submit" variant="contained" sx={{ mr: 2 }}>
-                    Generate
-                  </Button>
-                  <Button onClick={clearFormHandler} variant="outlined">
-                    Reset
-                  </Button>
-                </Grid>
-              </form>
+              <Grid item xs={12}>
+                <Typography variant="h2" sx={{ mb: 2 }}>
+                  Dog Poster Generator
+                </Typography>
+                <AlertMessage severity="info">
+                  Choose desired breeds to view in the table below and click the
+                  "Generate" button to view them.
+                </AlertMessage>
+                <TableContainer component={Paper}>
+                  <Table sx={{ minWidth: 650 }} aria-label="breed table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Breed</TableCell>
+                        <TableCell>Sub-Breed</TableCell>
+                        <TableCell>Image Count</TableCell>
+                        <TableCell>Action</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>{getRows()}</TableBody>
+                  </Table>
+                </TableContainer>
+              </Grid>
+              <Grid item xs={12} sx={{ mt: 4 }}>
+                <Button
+                  onClick={handleSubmit}
+                  variant="contained"
+                  sx={{ mr: 2 }}
+                >
+                  Generate
+                </Button>
+                <Button onClick={clearFormHandler} variant="outlined">
+                  Reset
+                </Button>
+              </Grid>
             </>
           )}
         </Grid>
