@@ -68,6 +68,16 @@ function BreedItemRow(props: any) {
     addSelectedBreeds();
   }, [breed, subBreed]);
 
+  useEffect(() => {
+    if (props.clearRows) {
+      setBreed("");
+      setSubBreed("");
+      setSubBreeds([]);
+      setImageCount(0);
+      props.onRowsCleared();
+    }
+  }, [props.clearRows]);
+
   return (
     <TableRow
       sx={{

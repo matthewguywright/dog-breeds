@@ -30,6 +30,7 @@ function App() {
   const breed = useSelector((state: any) => state.breed);
   const [open, setOpen] = useState(false);
   const [rowCount, setRowCount] = useState(1);
+  const [clearRows, setClearRows] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -49,6 +50,8 @@ function App() {
           rowId={i}
           addRowHandler={addRowHandler}
           breeds={breed.breeds}
+          clearRows={clearRows}
+          onRowsCleared={onRowsCleared}
         />
       );
     }
@@ -60,9 +63,14 @@ function App() {
     setRowCount(() => rowCount + 1);
   };
 
+  const onRowsCleared = () => {
+    setClearRows(false);
+  };
+
   const clearFormHandler = (event: any) => {
     event.preventDefault();
     dispatch(clearImageList());
+    setClearRows(true);
     setRowCount(() => 1);
   };
 
@@ -79,7 +87,9 @@ function App() {
       </Grid>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          {breed.loading && <Typography variant="h2">Waiting on data...</Typography>}
+          {breed.loading && (
+            <Typography variant="h2">Waiting on data...</Typography>
+          )}
 
           {breed.error && (
             <AlertMessage severity="error">
