@@ -41,7 +41,7 @@ function ImagesModal(props: any) {
     >
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Canine Gallery ({breed.imageList.length} images)
+          Dog Poster Gallery ({breed.imageList.length} images)
         </Typography>
         {breed.imageList.length ? (
           <Grid container spacing={2}>
