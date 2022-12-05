@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Grid,
@@ -86,17 +86,20 @@ function App() {
             <>
               <form id="dogForm" noValidate onSubmit={handleSubmit}>
                 <Grid item xs={12}>
-                  <Alert severity="info" sx={{ mb: 2 }}>
+                  <Typography variant="h2" sx={{ mb: 2 }}>
+                    Dog Poster Generator
+                  </Typography>
+                  <Typography variant="body2" sx={{ mb: 2 }}>
                     Choose desired breeds to view in the table below and click
                     the "Generate" button to view them.
-                  </Alert>
+                  </Typography>
                   <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="breed table">
                       <TableHead>
                         <TableRow>
                           <TableCell>Breed</TableCell>
                           <TableCell>Sub-Breed</TableCell>
-                          <TableCell>Image Count</TableCell>
+                          <TableCell># of Images</TableCell>
                           <TableCell>Action</TableCell>
                         </TableRow>
                       </TableHead>
@@ -105,7 +108,7 @@ function App() {
                   </TableContainer>
                 </Grid>
                 <Grid item xs={12} sx={{ mt: 4 }}>
-                  <Button type="submit" variant="outlined" sx={{ mr: 2 }}>
+                  <Button type="submit" variant="contained" sx={{ mr: 2 }}>
                     Generate
                   </Button>
                   <Button onClick={clearFormHandler} variant="outlined">
