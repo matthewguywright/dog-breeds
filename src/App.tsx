@@ -112,7 +112,7 @@ function App() {
                     Generate
                   </Button>
                   <Button onClick={clearFormHandler} variant="outlined">
-                    Clear
+                    Reset
                   </Button>
                 </Grid>
               </form>
