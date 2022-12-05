@@ -1,6 +1,6 @@
 import React from "react";
 import ImagesModal from "../component/ImagesModal";
-import { render, fireEvent, cleanup, screen } from "@testing-library/react";
+import { render, cleanup, screen } from "@testing-library/react";
 import configureMockStore, { MockStore } from "redux-mock-store";
 import { Provider } from "react-redux";
 
