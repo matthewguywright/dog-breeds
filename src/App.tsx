@@ -134,13 +134,13 @@ function App() {
                   Reset
                 </Button>
               </Grid>
-            </>
+            </>     
           )}
         </Grid>
       </Grid>
       <ImagesModal isOpen={open} handleClose={handleClose} />
     </Container>
   );
-}
+}  
 
 export default App;
