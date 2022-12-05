@@ -79,7 +79,7 @@ function App() {
       </Grid>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          {breed.loading && <Typography variant="h2">Loading...</Typography>}
+          {breed.loading && <Typography variant="h2">Waiting on data...</Typography>}
 
           {breed.error && (
             <AlertMessage severity="error">
