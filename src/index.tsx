@@ -18,7 +18,11 @@ root.render(
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Suspense fallback={<Typography variant="h2">Loading...</Typography>}>
+        <Suspense
+          fallback={
+            <Typography variant="h2">Loading Application...</Typography>
+          }
+        >
           <App />
         </Suspense>
       </ThemeProvider>
